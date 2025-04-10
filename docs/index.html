@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>営業報告フォーム</title>
+  <link rel="stylesheet" href="style.css" />
+  <script type="module" src="main.js"></script>
+</head>
+<body>
+  <h1>営業報告フォーム</h1>
+  <form id="reportForm">
+    <label>訪問先:<br><input type="text" id="place" required></label><br>
+    <label>内容:<br><textarea id="notes" required></textarea></label><br>
+    <label>写真:<br><input type="file" id="image" accept="image/*"></label><br>
+    <button type="submit">送信</button>
+  </form>
+</body>
+</html>
