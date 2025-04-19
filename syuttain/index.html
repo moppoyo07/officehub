@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>出退勤 選択</title>
+  <style>
+    body {
+      margin: 0;
+      padding: 2rem;
+      background-color: #f0f0f0;
+      font-family: sans-serif;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      height: 100vh;
+    }
+
+    h1 {
+      font-size: 2rem;
+      margin-bottom: 2rem;
+    }
+
+    .btn-container {
+      display: flex;
+      gap: 2rem;
+      margin-bottom: 3rem;
+    }
+
+    .btn {
+      font-size: 1.5rem;
+      padding: 2rem 4rem;
+      border: none;
+      border-radius: 1rem;
+      cursor: pointer;
+      color: white;
+      min-width: 150px;
+    }
+
+    .work-btn {
+      background-color: #28a745;
+    }
+
+    .leave-btn {
+      background-color: #dc3545;
+    }
+
+    .test-btn {
+      background-color: #007bff;
+      margin-top: 2rem;
+      font-size: 1rem;
+      padding: 1rem 2rem;
+    }
+  </style>
+</head>
+<body>
+  <h1>出勤・退勤を選択</h1>
+
+  <div class="btn-container">
+    <button class="btn work-btn" onclick="goNext('出勤')">出勤</button>
+    <button class="btn leave-btn" onclick="goNext('退勤')">退勤</button>
+  </div>
+
+  <!-- 🔽 Firestoreテスト書き込みボタン -->
+  <button class="btn test-btn" onclick="saveTestLog()">Firestore書き込みテスト</button>
+
+  <script>
+    function goNext(status) {
+      sessionStorage.setItem("status", status);
+      location.href = "select.html";
+    }
+
+    // Firestore書き込みテスト
+    import("https://www.gstatic.com/firebasejs/10.11.0/firebase-app.js").then(({ initializeApp }) => {
+      import("https://www.gstatic.com/firebasejs/10.11.0/firebase-firestore.js").then(({ getFirestore, collection, addDoc }) => {
+        const firebaseConfig = {
+          apiKey: "AIzaSyAdmlzzWz8m9Z3nqsAyQ2wx0wsbYZs8wKo",
+          authDomain: "officehub-c6c1b.firebaseapp.com",
+          projectId: "officehub-c6c1b",
+          storageBucket: "officehub-c6c1b.firebasestorage.app",
+          messagingSenderId: "281713006483",
+          appId: "1:281713006483:web:dc517b215d2b54a37e7a66"
+        };
+        const app = initializeApp(firebaseConfig);
+        const db = getFirestore(app);
+
+        window.saveTestLog = async function () {
+          try {
+            await addDoc(collection(db, "attendance_logs"), {
+              name: "テスト太郎",
+              status: "出勤",
+              timestamp: new Date().toISOString()
+            });
+            alert("Firestore に書き込みました。");
+          } catch (e) {
+            alert("書き込み失敗: " + e.message);
+          }
+        };
+      });
+    });
+  </script>
+</body>
+</html>

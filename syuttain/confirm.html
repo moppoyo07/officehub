@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>出退勤送信</title>
+  <style>
+    body {
+      margin: 0;
+      background-color: #f5f5f5;
+      font-family: sans-serif;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      height: 100vh;
+      text-align: center;
+    }
+
+    h1 {
+      font-size: 1.8rem;
+      margin-bottom: 2rem;
+    }
+
+    #sendBtn {
+      font-size: 2rem;
+      padding: 2rem 4rem;
+      background-color: #28a745;
+      color: white;
+      border: none;
+      border-radius: 1.5rem;
+      cursor: pointer;
+    }
+
+    #coords {
+      margin-top: 2rem;
+      font-size: 1.1rem;
+      color: #333;
+    }
+
+    #status {
+      margin-top: 1.5rem;
+      color: #666;
+      font-size: 1rem;
+    }
+  </style>
+</head>
+<body>
+  <h1>🚶‍♂️ 出勤情報を送信しますか？</h1>
+
+  <button id="sendBtn">✅ 送信する</button>
+
+  <div id="coords"></div>
+  <div id="status"></div>
+
+  <script type="module">
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/10.11.0/firebase-app.js";
+    import { getFirestore, collection, addDoc } from "https://www.gstatic.com/firebasejs/10.11.0/firebase-firestore.js";
+
+    const firebaseConfig = {
+      apiKey: "AIzaSyAdmlzzWz8m9Z3nqsAyQ2wx0wsbYZs8wKo",
+      authDomain: "officehub-c6c1b.firebaseapp.com",
+      projectId: "officehub-c6c1b",
+      storageBucket: "officehub-c6c1b.firebasestorage.app",
+      messagingSenderId: "281713006483",
+      appId: "1:281713006483:web:dc517b215d2b54a37e7a66"
+    };
+
+    const app = initializeApp(firebaseConfig);
+    const db = getFirestore(app);
+
+    const coordsDiv = document.getElementById("coords");
+    const statusDiv = document.getElementById("status");
+
+    const params = new URLSearchParams(location.search);
+    const name = params.get("name") || "未設定";
+    const status = params.get("status") || "未設定";
+    const timestamp = params.get("timestamp") || new Date().toISOString();
+
+    document.getElementById("sendBtn").addEventListener("click", () => {
+      navigator.geolocation.getCurrentPosition(
+        async (pos) => {
+          const lat = pos.coords.latitude.toFixed(6);
+          const lng = pos.coords.longitude.toFixed(6);
+          coordsDiv.textContent = `${lng}・${lat}`;
+
+          try {
+            await addDoc(collection(db, "attendance_confirm"), {
+              name,
+              status,
+              timestamp,
+              latitude: lat,
+              longitude: lng,
+              sentAt: new Date().toISOString()
+            });
+            statusDiv.textContent = "✅ Firestore に送信しました";
+          } catch (e) {
+            statusDiv.textContent = "⚠️ Firestore 送信失敗";
+            console.error("送信エラー:", e);
+          }
+        },
+        (err) => {
+          coordsDiv.textContent = "位置情報取得失敗";
+          statusDiv.textContent = "⚠️ 位置情報が取得できないため送信できません";
+        },
+        { enableHighAccuracy: true, timeout: 10000 }
+      );
+    });
+  </script>
+</body>
+</html>

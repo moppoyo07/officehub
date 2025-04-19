@@ -1,0 +1,95 @@
+body {
+  font-family: "Segoe UI", sans-serif;
+  background-color: #f4f4f4;
+  margin: 0;
+  padding: 1.5rem;
+  text-align: center;
+}
+
+h1 {
+  color: #333;
+  font-size: 1.8rem;
+  margin-bottom: 2rem;
+}
+
+.container {
+  max-width: 480px;
+  margin: 0 auto;
+  padding: 1rem;
+  background-color: #fff;
+  border-radius: 12px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.button-group {
+  display: flex;
+  justify-content: space-between;
+  gap: 1rem;
+  margin-bottom: 2rem;
+}
+
+.big-button {
+  flex: 1;
+  padding: 1.5rem;
+  font-size: 1.4rem;
+  border: none;
+  border-radius: 10px;
+  cursor: pointer;
+  color: #fff;
+  transition: background-color 0.3s;
+}
+
+#checkinBtn {
+  background-color: #28a745;
+}
+
+#checkinBtn:hover {
+  background-color: #218838;
+}
+
+#checkoutBtn {
+  background-color: #dc3545;
+}
+
+#checkoutBtn:hover {
+  background-color: #c82333;
+}
+
+.hidden {
+  display: none;
+}
+
+label {
+  font-weight: bold;
+  display: block;
+  margin-bottom: 0.5rem;
+}
+
+select {
+  width: 100%;
+  padding: 0.7rem;
+  font-size: 1rem;
+  margin-bottom: 1rem;
+  border-radius: 6px;
+  border: 1px solid #ccc;
+}
+
+.small-button {
+  background-color: #007bff;
+  color: #fff;
+  border: none;
+  padding: 0.8rem 1.5rem;
+  font-size: 1rem;
+  border-radius: 6px;
+  cursor: pointer;
+}
+
+.small-button:hover {
+  background-color: #0056b3;
+}
+
+#qrImage {
+  margin-top: 1rem;
+  max-width: 100%;
+  height: auto;
+}

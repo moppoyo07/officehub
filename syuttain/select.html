@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>社員選択</title>
+  <style>
+    body {
+      background-color: #ffffff;
+      font-family: sans-serif;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 2rem;
+      height: 100vh;
+    }
+
+    h2 {
+      margin-bottom: 2rem;
+      font-size: 1.5rem;
+    }
+
+    .name-btn {
+      font-size: 1.4rem;
+      padding: 1.5rem 3rem;
+      margin: 1rem 0;
+      width: 80%;
+      max-width: 300px;
+      background-color: #007bff;
+      color: white;
+      border: none;
+      border-radius: 10px;
+      cursor: pointer;
+    }
+
+    .name-btn:hover {
+      background-color: #0056b3;
+    }
+  </style>
+</head>
+<body>
+  <h2 id="statusLabel">選択中: ？</h2>
+
+  <button class="name-btn" onclick="selectName('松本')">松本</button>
+  <button class="name-btn" onclick="selectName('小笹')">小笹</button>
+  <button class="name-btn" onclick="selectName('山本')">山本</button>
+  <button class="name-btn" onclick="selectName('圷')">圷</button>
+
+  <script>
+    const status = sessionStorage.getItem("status") || "未設定";
+    document.getElementById("statusLabel").textContent = `選択中: ${status}`;
+  
+    // 🔽 グローバル関数として登録
+    window.selectName = function(name) {
+      const now = new Date();
+      const timestamp = now.toISOString().slice(0, 16); // 秒なしでOK
+  
+      const query = new URLSearchParams({
+        name: name,
+        status: status,
+        timestamp: timestamp
+      });
+  
+      const confirmUrl = `https://moppoyo07.github.io/officehub/confirm.html?${query.toString()}`;
+
+  
+      // QR画面に遷移
+      window.location.href = `qr.html?url=${encodeURIComponent(confirmUrl)}`;
+    };
+  </script>
+  
+</body>
+</html>

@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>出勤する人を選んでください</title>
+  <style>
+    body {
+      font-family: sans-serif;
+      text-align: center;
+      padding: 2rem;
+      background-color: #e8f5e9;
+    }
+    h1 {
+      font-size: 1.6rem;
+      margin-bottom: 2rem;
+    }
+    .user-button {
+      display: block;
+      width: 80%;
+      margin: 1rem auto;
+      padding: 1.5rem;
+      font-size: 1.2rem;
+      background-color: #4caf50;
+      color: white;
+      border: none;
+      border-radius: 12px;
+      cursor: pointer;
+      box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+    }
+  </style>
+</head>
+<body>
+  <h1>出勤する人を選んでください</h1>
+
+  <button class="user-button" onclick="location.href='qr.html?user=山田太郎&type=shukkin'">山田太郎</button>
+  <button class="user-button" onclick="location.href='qr.html?user=佐藤花子&type=shukkin'">佐藤花子</button>
+  <button class="user-button" onclick="location.href='qr.html?user=田中一郎&type=shukkin'">田中一郎</button>
+  <button class="user-button" onclick="location.href='qr.html?user=鈴木未来&type=shukkin'">鈴木未来</button>
+</body>
+</html>

@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>名前を選択</title>
+  <style>
+    body {
+      font-family: sans-serif;
+      text-align: center;
+      padding: 2rem;
+      background-color: #fff;
+    }
+    h1 {
+      font-size: 1.5rem;
+      margin-bottom: 1rem;
+    }
+    .name-buttons {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1rem;
+      max-width: 400px;
+      margin: auto;
+    }
+    .btn {
+      padding: 1.5rem;
+      font-size: 1.2rem;
+      border: none;
+      border-radius: 8px;
+      background-color: #007bff;
+      color: white;
+      cursor: pointer;
+    }
+    .btn:hover {
+      background-color: #0056b3;
+    }
+  </style>
+</head>
+<body>
+  <h1>名前を選んでください</h1>
+  <div class="name-buttons">
+    <button class="btn" onclick="selectName('田中 太郎')">田中 太郎</button>
+    <button class="btn" onclick="selectName('佐藤 花子')">佐藤 花子</button>
+    <button class="btn" onclick="selectName('鈴木 次郎')">鈴木 次郎</button>
+    <button class="btn" onclick="selectName('山田 三郎')">山田 三郎</button>
+  </div>
+
+  <script>
+    function selectName(name) {
+      const urlParams = new URLSearchParams(window.location.search);
+      const mode = urlParams.get('mode'); // shukkin or taikin
+      window.location.href = `qr.html?mode=${mode}&name=${encodeURIComponent(name)}`;
+    }
+  </script>
+</body>
+</html>
