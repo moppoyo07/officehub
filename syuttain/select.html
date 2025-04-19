@@ -50,25 +50,23 @@
   <script>
     const status = sessionStorage.getItem("status") || "未設定";
     document.getElementById("statusLabel").textContent = `選択中: ${status}`;
-  
-    // 🔽 グローバル関数として登録
+
     window.selectName = function(name) {
       const now = new Date();
-      const timestamp = now.toISOString().slice(0, 16); // 秒なしでOK
-  
+      const timestamp = now.toISOString().slice(0, 16);
+
       const query = new URLSearchParams({
         name: name,
         status: status,
         timestamp: timestamp
       });
-  
-      const confirmUrl = `https://moppoyo07.github.io/officehub/syuttain/confirm.html?...
 
-  
-      // QR画面に遷移
+      // ✅ 本番URL（docsなし）
+      const confirmUrl = `https://moppoyo07.github.io/officehub/syuttain/confirm.html?${query.toString()}`;
+
+      // QR表示ページに遷移（urlパラメータとして渡す）
       window.location.href = `qr.html?url=${encodeURIComponent(confirmUrl)}`;
     };
   </script>
-  
 </body>
 </html>
